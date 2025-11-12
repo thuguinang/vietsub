@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gemiflix — Xem phim tĩnh (Static)</title>
+    <meta name="description" content="Gemiflix - Website xem phim tĩnh, giao diện Netflix-like, phát video nhúng từ bên thứ ba." />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <!-- data-page để script.js biết đang ở trang nào -->
+  <body data-page="index">
+    <!-- Navbar -->
+    <header class="navbar" role="banner" aria-label="Thanh điều hướng">
+      <div class="container nav-inner">
+        <a class="brand" href="index.html" aria-label="Trang chủ Gemiflix">
+          <span class="brand__logo" aria-hidden="true">▶</span> Gemiflix
+        </a>
+
+        <!-- Ô tìm kiếm đơn giản (tùy chọn dùng) -->
+        <form class="search" role="search" aria-label="Tìm phim" onsubmit="return false;">
+          <input id="search-input" type="search" placeholder="Tìm phim..." aria-label="Tìm kiếm theo tên phim" />
+        </form>
+      </div>
+    </header>
+
+    <!-- Vùng quảng cáo banner (thay bằng hình/HTML của bạn) -->
+    <section class="ad ad--banner container" aria-label="Khu vực quảng cáo 728x90">
+      <!-- Ví dụ thay bằng <a href="#"><img src="LINK-ANH-728x90" alt="Quảng cáo"></a> -->
+      <div class="ad__placeholder">KHU VỰC QUẢNG CÁO 728×90</div>
+    </section>
+
+    <!-- Hero banner: script.js sẽ tự đổ nội dung từ phim "featured" -->
+    <section id="hero" class="hero container" aria-label="Phim nổi bật">
+      <!-- Nội dung sẽ được render tự động -->
+      <div class="hero__loading">Đang tải phim nổi bật…</div>
+    </section>
+
+    <!-- Các kệ phim (shelf) định nghĩa sẵn — script.js tự đổ poster vào .movie-list -->
+    <main class="container" id="shelves" role="main">
+      <!-- Bạn có thể thay đổi tiêu đề h2; dữ liệu dựa vào data-category -->
+      <section id="shelf-hanh-dong" class="shelf" data-category="hanh-dong">
+        <div class="shelf__header">
+          <h2>Phim Hành Động</h2>
+          <div class="shelf__controls" aria-label="Điều khiển cuộn">
+            <button class="btn btn--ghost prev" aria-label="Cuộn trái">◀</button>
+            <button class="btn btn--ghost next" aria-label="Cuộn phải">▶</button>
+          </div>
+        </div>
+        <div class="movie-list" role="list"></div>
+      </section>
+
+      <section id="shelf-kinh-di" class="shelf" data-category="kinh-di">
+        <div class="shelf__header">
+          <h2>Phim Kinh Dị</h2>
+          <div class="shelf__controls">
+            <button class="btn btn--ghost prev" aria-label="Cuộn trái">◀</button>
+            <button class="btn btn--ghost next" aria-label="Cuộn phải">▶</button>
+          </div>
+        </div>
+        <div class="movie-list" role="list"></div>
+      </section>
+
+      <section id="shelf-tinh-cam" class="shelf" data-category="tinh-cam">
+        <div class="shelf__header">
+          <h2>Phim Tình Cảm</h2>
+          <div class="shelf__controls">
+            <button class="btn btn--ghost prev" aria-label="Cuộn trái">◀</button>
+            <button class="btn btn--ghost next" aria-label="Cuộn phải">▶</button>
+          </div>
+        </div>
+        <div class="movie-list" role="list"></div>
+      </section>
+
+      <section id="shelf-hai-huoc" class="shelf" data-category="hai-huoc">
+        <div class="shelf__header">
+          <h2>Phim Hài Hước</h2>
+          <div class="shelf__controls">
+            <button class="btn btn--ghost prev" aria-label="Cuộn trái">◀</button>
+            <button class="btn btn--ghost next" aria-label="Cuộn phải">▶</button>
+          </div>
+        </div>
+        <div class="movie-list" role="list"></div>
+      </section>
+
+      <section id="shelf-hoat-hinh" class="shelf" data-category="hoat-hinh">
+        <div class="shelf__header">
+          <h2>Phim Hoạt Hình</h2>
+          <div class="shelf__controls">
+            <button class="btn btn--ghost prev" aria-label="Cuộn trái">◀</button>
+            <button class="btn btn--ghost next" aria-label="Cuộn phải">▶</button>
+          </div>
+        </div>
+        <div class="movie-list" role="list"></div>
+      </section>
+
+      <!-- Nếu trong database có thêm thể loại mà chưa có section,
+           script.js sẽ tự tạo thêm dưới đây -->
+      <div id="dynamic-shelves"></div>
+    </main>
+
+    <!-- Quảng cáo giữa trang (thay tùy ý) -->
+    <section class="ad ad--box container" aria-label="Khu vực quảng cáo 300x250">
+      <div class="ad__placeholder">QUẢNG CÁO 300×250</div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <p>© <span id="year"></span> Gemiflix. Nội dung video nhúng từ bên thứ ba (YouTube, Dailymotion…).</p>
+      </div>
+    </footer>
+
+    <!-- Script: data.js phải nằm trước script.js -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

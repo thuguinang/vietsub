@@ -1,0 +1,262 @@
+/* ============================
+   Gemiflix — style.css
+   Chủ đề tối, cảm hứng Netflix
+   ============================ */
+
+:root{
+  --bg: #0f0f11;
+  --bg-elev: #151517;
+  --bg-soft: #1e1f23;
+  --text: #e6e6e6;
+  --muted: #a7a7b0;
+  --accent: #e50914; /* đỏ tone Netflix */
+  --card: #1a1b1f;
+  --border: #2a2b30;
+  --radius: 12px;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+html { scroll-behavior: smooth; }
+
+body{
+  margin: 0;
+  font-family: "Roboto", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.container{
+  width: min(1280px, 100%);
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
+/* ===== Navbar ===== */
+.navbar{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(to bottom, rgba(15,15,17,0.95), rgba(15,15,17,0.8));
+  backdrop-filter: saturate(120%) blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.brand{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--text);
+  letter-spacing: .2px;
+  font-size: 20px;
+}
+.brand__logo{
+  display: inline-grid;
+  place-items: center;
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff; font-weight: 900;
+}
+
+.search input{
+  width: min(320px, 40vw);
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--text);
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 999px;
+  outline: none;
+}
+.search input::placeholder{ color: var(--muted); }
+
+/* ===== Ads ===== */
+.ad{
+  margin-block: 12px 20px;
+}
+.ad__placeholder{
+  display: grid; place-items: center;
+  min-height: 90px;
+  background: repeating-linear-gradient(45deg, #222, #222 10px, #1a1a1a 10px, #1a1a1a 20px);
+  color: #ccc;
+  border: 1px dashed #444;
+  border-radius: var(--radius);
+  letter-spacing: 1px;
+}
+.ad--banner .ad__placeholder{ min-height: 90px; }
+.ad--box .ad__placeholder{ min-height: 250px; }
+
+/* ===== Hero ===== */
+.hero{
+  position: relative;
+  border-radius: calc(var(--radius) + 4px);
+  overflow: hidden;
+  min-height: clamp(320px, 45vh, 520px);
+  margin-block: 12px 20px;
+  background: #000;
+  box-shadow: var(--shadow);
+}
+.hero__bg{
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(.8);
+  transform: scale(1.02);
+}
+.hero__shade{
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,.6) 60%, rgba(0,0,0,.9) 100%);
+}
+.hero__content{
+  position: relative;
+  z-index: 1;
+  padding: clamp(16px, 5vw, 36px);
+  margin-top: auto;
+  display: grid;
+  gap: 10px;
+  max-width: 700px;
+}
+.hero__title{
+  margin: 0;
+  font-size: clamp(24px, 4.2vw, 44px);
+  line-height: 1.1;
+}
+.hero__desc{
+  margin: 0;
+  color: var(--muted);
+  max-width: 60ch;
+}
+.btn{
+  display: inline-grid; place-items: center;
+  height: 44px; padding-inline: 16px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn:hover{ filter: brightness(1.06); }
+.btn--ghost{
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text);
+}
+.btn--ghost:hover{ border-color: #555; }
+
+/* ===== Shelf & Movie list ===== */
+.shelf{
+  margin-block: 8px 28px;
+}
+.shelf__header{
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.shelf__header h2{
+  margin: 0;
+  font-size: 20px; font-weight: 700;
+}
+.shelf__controls{ display: flex; gap: 6px; }
+
+.movie-list{
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+}
+.movie-list::-webkit-scrollbar{ height: 10px; }
+.movie-list::-webkit-scrollbar-thumb{
+  background: #2b2b2f; border-radius: 999px;
+}
+
+.movie-card{
+  --w: clamp(120px, 16vw, 180px);
+  width: var(--w);
+  flex: 0 0 var(--w);
+  scroll-snap-align: start;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--card);
+  transform: translateZ(0); /* GPU hint */
+  transition: transform .22s ease, box-shadow .22s ease;
+  text-decoration: none;
+  color: inherit;
+}
+.movie-card:hover{
+  transform: scale(1.06);
+  box-shadow: var(--shadow);
+}
+.poster{
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  display: block;
+  background: #111;
+}
+.movie-card__meta{
+  position: absolute; inset-inline: 0; bottom: 0;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,.8));
+  padding: 10px;
+}
+.movie-card__title{
+  margin: 0;
+  font-size: 14px;
+  text-shadow: 0 2px 10px rgba(0,0,0,.6);
+}
+
+/* ===== Player page ===== */
+.movie-page{ padding-block: 10px 30px; }
+.movie-title{ margin: 8px 0 2px; font-size: clamp(20px, 3.4vw, 32px); }
+.movie-description{ margin-top: 4px; color: var(--muted); }
+
+.player-container{
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-block: 12px 22px;
+  box-shadow: var(--shadow);
+}
+.player-iframe{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* ===== Footer ===== */
+.footer{
+  padding: 24px 0 40px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  margin-top: 24px;
+}
+
+/* ===== Helpers ===== */
+.hero__loading, .player__loading{
+  display: grid; place-items: center;
+  padding: 30px; color: var(--muted);
+}
+
+/* ===== Responsive tweaks ===== */
+@media (max-width: 640px){
+  .search{ display: none; }
+  .shelf__controls{ display: none; } /* bớt rối trên mobile, vẫn vuốt ngang được */
+}
